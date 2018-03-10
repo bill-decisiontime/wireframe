@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  div(class="container")
+    div(class="row")
+      div(class="col")
+        h3= message
+        if error.status
+          h4= error.status
+        if error.stack
+          pre(class="error_stack p-3 rounded") #{error.stack}

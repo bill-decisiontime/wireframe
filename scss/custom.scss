@@ -1,0 +1,10 @@
+// our overides
+@import "variables";
+
+// Bootstrap and its default variables
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// our custom files
+@import "global";
+@import "errors";
+@import "home";
