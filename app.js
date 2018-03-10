@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').config();
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
 
 // live reload
@@ -31,6 +28,10 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 // locals
 app.locals.pjson = require('./package.json'); // make package json available to views
 app.locals.env = app.get('env');
+
+// allowed routes
+var index = require('./routes/index');
+var users = require('./routes/users');
 
 app.use('/', index);
 app.use('/users', users);
