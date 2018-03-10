@@ -2,6 +2,10 @@
   "name": "wireframe",
   "version": "1.0.0",
   "private": true,
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/bill-teamsolutionz/wireframe"
+  },  
   "scripts": {
     "start": "nodemon ./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"

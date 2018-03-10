@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // locals
 app.locals.pjson = require('./package.json'); // make package json available to views
+app.locals.env = app.get('env');
 
 app.use('/', index);
 app.use('/users', users);
