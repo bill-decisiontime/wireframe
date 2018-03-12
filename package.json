@@ -2,12 +2,12 @@
   "name": "wireframe",
   "version": "1.0.0",
   "private": true,
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/bill-teamsolutionz/wireframe"
-  },  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bill-teamsolutionz/wireframe"
+  },
   "scripts": {
-    "start": "nodemon ./bin/www.js",
+    "start": "nodemon --inspect ./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
@@ -18,6 +18,9 @@
     "dotenv": "^5.0.1",
     "express": "~4.15.5",
     "jquery": "^3.3.1",
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.0.9",
+    "mongoose-type-email": "^1.0.5",
     "morgan": "~1.9.0",
     "popper.js": "^1.12.9",
     "pug": "2.0.0-beta11",

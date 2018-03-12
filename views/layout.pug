@@ -21,11 +21,8 @@ html
                 a(class="dropdown-item" href="#") another action
                 div(class="dropdown-divider")
                 a(class="dropdown-item" href="#") something else here
-            li(class="nav-item")
-              a(class="nav-link" href="#") search                
-            li(class="nav-item")
-              a(class="nav-link disabled" href="#") back 
-                i(class="fas fa-chevron-left fa-sm ml-0")
+            li(class={active: title === "users", 'nav-item': true})
+              a(class="nav-link" href="/users") users
       
       div(class="col text-center")
         a(class="navbar-brand text-center" href="/") #{pjson.name}
@@ -53,6 +50,8 @@ html
     script(src="/jquery/dist/jquery.min.js")
     script(src="/popper.js/dist/umd/popper.min.js")
     script(src="/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/javascripts/backbone/lib/underscore-min.js")
+    script(src="/javascripts/backbone/lib/backbone-min.js")
     script(src="/javascripts/global.js")
     
     block non_blocking_scripts
