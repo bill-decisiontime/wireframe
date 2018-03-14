@@ -6,7 +6,8 @@ var debug_db = require('debug')(app_name+':db');
 var User = require('../models/user');
 
 // get all users
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next)
+{
   User.find().then(
     (users) => {
       // xhr
@@ -17,6 +18,7 @@ router.get('/', function(req, res, next) {
       // standard
       else
       {
+        debug(users);
         res.render('users', {title: 'users', users: users});
       }
     },
@@ -37,7 +39,7 @@ router.get('/:id', function(req, res, next) {
 // post
 router.post('/', function(req, res, next)
 {
-  var new_user = {first_name: 'bill', last_name: 'morrison', email: 'bmorrison@whiteimage.com'};
+  var new_user = {first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email};
   
   User.create(new_user, function (err, result) {
     if (err)
@@ -48,7 +50,7 @@ router.post('/', function(req, res, next)
     }
     else
     {
-      res.json({success: true, msg: 'user successfully created'});
+      res.json(result);
     }
   });
 });

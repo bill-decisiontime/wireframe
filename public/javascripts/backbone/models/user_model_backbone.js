@@ -6,7 +6,7 @@ var UserModel = Backbone.Model.extend({
   idAttribute: '_id',
   
   defaults: {
-    id: null,
+    _id: null,
     __v: null,
     first_name: null,
     last_name: null,
@@ -46,7 +46,7 @@ var UserModel = Backbone.Model.extend({
     // email - required
     if(attrs.email.length === 0)
     {
-      validation_errors.push({msg: 'Emailis a required field', attr: 'email'});
+      validation_errors.push({msg: 'Email is a required field', attr: 'email'});
     }
     
     // email - max length
