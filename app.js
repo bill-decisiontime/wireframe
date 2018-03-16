@@ -30,8 +30,8 @@ app.locals.pjson = require('./package.json'); // make package json available to 
 app.locals.env = app.get('env');
 
 // allowed routes
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./routes/index_route');
+var users = require('./routes/users_route');
 
 app.use('/', index);
 app.use('/users', users);

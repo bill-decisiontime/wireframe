@@ -11,7 +11,7 @@ var debug = require('debug')(app_name+':server');
 var debug_db = require('debug')(app_name+':db');
 var http = require('http');
 var mongoose = require('mongoose');
-var mongo_url = 'mongodb://localhost:27017/wireframe';
+var mongo_url = process.env.MONGO_DB_URI;
 
 /**
  * Get port from environment and store in Express.

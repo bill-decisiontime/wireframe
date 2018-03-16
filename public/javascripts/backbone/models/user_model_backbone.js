@@ -10,7 +10,8 @@ var UserModel = Backbone.Model.extend({
     __v: null,
     first_name: null,
     last_name: null,
-    email: null,  
+    email: null,
+    avatar: null, 
     createdAt: null,
     updatedAt: null
   },  
@@ -53,6 +54,14 @@ var UserModel = Backbone.Model.extend({
     if(attrs.email.length > MAX_EMAIL_LENGTH)
     {
       validation_errors.push({msg: 'Email is too long, maximum of '+MAX_EMAIL_LENGTH+' characters.', attr: 'email'});
+    }
+    
+    var pattern = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    
+    // avatar - is url
+    if( ! pattern.test(attrs.avatar))
+    {
+      validation_errors.push({msg: 'If you enter an avatar it must be a valid URL.', attr: 'avatar'});
     }
     
     if(validation_errors.length > 0) return validation_errors;

@@ -113,19 +113,37 @@ var AddUserView = Backbone.View.extend(
     var that = this;
     event.preventDefault();
     
+    // els
+    var btn_el = this.$('#submit_btn');
+    var btn_el_icon = this.$('#submit_btn_icon');
+    var btn_el_loader = this.$('#submit_btn_loader');
+    
+    // for avatar
+    var genders = ['men', 'women'];
+    var random_gender_index = Math.floor(Math.random()*genders.length);
+    var random_int = Math.floor(Math.random()*100);
+    
+    var avatar = ( ! _.isEmpty(this.$('#avatar').val())) ? this.$('#avatar').val() : 'https://randomuser.me/api/portraits/'+genders[random_gender_index]+'/'+random_int+'.jpg';
+    
     // get the attrs from form
     var new_user_attrs = {
       first_name: this.$('#first_name').val(),
       last_name: this.$('#last_name').val(),
-      email: this.$('#email').val()
+      email: this.$('#email').val(),
+      avatar: avatar
     };
     
     var options = {
       wait: true,
-      success: function(model, response, options) {
-
+      success: function(model, response, options)
+      {
+        // show loading state
+        btn_el.attr('disabled', false);
+        btn_el_icon.toggle();
+        btn_el_loader.toggle();
+        
       },
-      failure: function(model, response, options) {}
+      failure: function(model, response, options){}
     };    
     
     var new_user = this.collection.create(new_user_attrs, options);
@@ -139,6 +157,11 @@ var AddUserView = Backbone.View.extend(
     // valid
     else
     {
+      // show loading state
+      btn_el.attr('disabled', true);
+      btn_el_icon.toggle();
+      btn_el_loader.toggle();
+            
       new_user.trigger('form:validation_success');
     }
   }  
@@ -161,6 +184,10 @@ var FormErrorFeedbackView = Backbone.View.extend(
     var data_for_template = {errors: this.model.validationError};
     var html = $(this.template(data_for_template));
     this.$el.html(html);
+    
+    // focus on first error
+    $('#'+this.model.validationError[0].attr+'').focus();
+    
     return this;   
   },
   

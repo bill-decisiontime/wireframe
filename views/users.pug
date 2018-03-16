@@ -2,31 +2,37 @@ extends layout
 
 block content
   div(class="container")
-    
+
     //- add user form
-    div(class="row")
+    div(class="row mb-5")
       div(class="col")
         form(id="add_user_form" class="form-inline justify-content-center")
           label(class="sr-only" for="first_name") First Name
-          input(type="text" class="form-control mb-3 mr-sm-2" id="first_name" name="fist_name" placeholder="first name")
-          label(class="sr-only" for="last_name") Larst Name
-          input(type="text" class="form-control mb-3 mr-sm-2" id="last_name" name="last_name" placeholder="last name")
+          input(type="text" class="form-control mr-sm-2 mb-2" id="first_name" name="fist_name" placeholder="first name")
+          label(class="sr-only" for="last_name") Last Name
+          input(type="text" class="form-control mr-sm-2 mb-2" id="last_name" name="last_name" placeholder="last name")
+          label(class="sr-only" for="last_name") Avatar
+          input(type="text" class="form-control mr-sm-2 mb-2" id="avatar" name="avatar" placeholder="avatar")
           label(class="sr-only" for="email") Email
-          div(class="input-group mb-3 mr-sm-2")
-            div(class="input-group-prepend")
+          div(class="input-group mr-sm-2")
+            div(class="input-group-prepend mb-2")
               div(class="input-group-text") @
-            input(type="email" class="form-control" id="email" name="email" placeholder="email")
+            input(type="email" class="form-control mb-2" id="email" name="email" placeholder="email")
 
-          button(type="submit" class="btn btn-primary mb-3") add <i class="fas fa-plus"></i>
-    
+          button(type="submit" id="submit_btn" class="btn btn-primary mb-2") add
+            | 
+            i(id="submit_btn_icon" class="fas fa-plus")
+            i(id="submit_btn_loader" style="display: none;" class="fas fa-sync fa-spin")
+
     //- form feedback
     div(id="form_error_feedback_container")
-    
+
     //- users table
     div(class="table-responsive")
       table(id="users_table" class={'d-none': users.length === 0} class="table table-hover")
         thead
           tr
+            th(scope="col") avatar
             th(scope="col") _id
             th(scope="col") first_name
             th(scope="col") last_name
@@ -35,33 +41,36 @@ block content
             th(scope="col") __v
             th(scope="col") action
         tbody
-    
+
   //- backbone template - user
   script(type="text/template" id="user_tmpl")
+    td
+      a(href!=`<%- avatar %>`)
+        img(src!=`<%= avatar %>`, class="rounded", alt="avatar", height="30px", width="30px")
     td <%- _id %>
     td <%- first_name %>
     td <%- last_name %>
-    td <%- email %>
+    td 
+      a(href!=`mailto:<%- email %>`) <%- email %>
     td(nowrap) <%- moment(createdAt).fromNow() %>
     td <%- __v %>
     td
-      a(href="#", class="delete_user")
+      a(href="#", class="delete_user mr-2")
         i(class="fas fa-times")
-      | 
       a(href="#", class="update_user")
-        i(class="fas fa-edit")
-          
+        i(class="fas fa-pencil-alt")
+
   //- backbone template - validation feedback
   script(type="text/template" id="form_error_feedback_tmpl")
-    div(id="form_error_feedback" class="alert alert-danger alert-dismissible fade show" role="alert")
-      strong Holy guacamole! 
-      | You should check in on some of those fields above.
+    div(id="form_error_feedback" class="alert alert-warning alert-dismissible fade show" role="alert")
+      strong Holy guacamole!
+      |  You should check in on some of those fields above.
       ul
         <%_.forEach(errors, function (error, i) { %>
           li <%= error.msg %>
         <% }) %>
       button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden="true") &times;          
+        span(aria-hidden="true") &times;
 
 block non_blocking_scripts
   script(src="/javascripts/backbone/models/user_model_backbone.js")

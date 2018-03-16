@@ -3,7 +3,7 @@ var router = express.Router();
 var app_name = require('../package.json').name;
 var debug = require('debug')(app_name+':server');
 var debug_db = require('debug')(app_name+':db');
-var User = require('../models/user');
+var User = require('../models/user_model_mongoose');
 
 // get all users
 router.get('/', function(req, res, next)
@@ -18,7 +18,6 @@ router.get('/', function(req, res, next)
       // standard
       else
       {
-        debug(users);
         res.render('users', {title: 'users', users: users});
       }
     },
@@ -39,14 +38,19 @@ router.get('/:id', function(req, res, next) {
 // post
 router.post('/', function(req, res, next)
 {
-  var new_user = {first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email};
-  
+  var new_user = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    avatar: req.body.avatar
+  };
+
   User.create(new_user, function (err, result) {
     if (err)
     {
       var err = new Error(err);
       err.status = 400;
-      next(err);      
+      next(err);
     }
     else
     {
@@ -59,13 +63,13 @@ router.post('/', function(req, res, next)
 router.put('/:id', function(req, res, next)
 {
   var update = {first_name: req.body.first_name};
-  
+
   User.findByIdAndUpdate(req.params.id, update, function (err, user) {
     if (err)
     {
       var err = new Error(err);
       err.status = 400;
-      next(err);      
+      next(err);
     }
     else
     {
@@ -76,7 +80,7 @@ router.put('/:id', function(req, res, next)
 
 // delete
 router.delete('/:id', function(req, res, next)
-{  
+{
   User.deleteOne({_id: req.params.id}, function (err, result) {
     if (err)
     {
