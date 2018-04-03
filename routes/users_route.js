@@ -4,11 +4,17 @@ var app_name = require('../package.json').name;
 var debug = require('debug')(app_name+':server');
 var debug_db = require('debug')(app_name+':db');
 var User = require('../models/user_model_mongoose');
+var random_avatar = require('random-avatar');
 
-// get all users
+// get all users with pagination
 router.get('/', function(req, res, next)
 {
-  User.find().then(
+  var page = req.query.page || 1;
+  
+  debug('page: '+page);
+  debug('req.query.per_page: '+req.query.per_page);
+  
+  User.paginate({}, { page: page, limit: parseInt(req.query.per_page) }).then(
     (users) => {
       // xhr
       if(req.xhr)
@@ -25,16 +31,6 @@ router.get('/', function(req, res, next)
   );
 });
 
-// get single user
-router.get('/:id', function(req, res, next) {
-  User.find().then(
-    (result) => {
-      res.render('users', { title: 'users', users: results });
-    },
-    error => {debug_db('there was an error finding the users');}
-  );
-});
-
 // post
 router.post('/', function(req, res, next)
 {
@@ -42,7 +38,7 @@ router.post('/', function(req, res, next)
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
-    avatar: req.body.avatar
+    avatar: req.body.avatar ? req.body.avatar : 'https://api.adorable.io/avatars/285/'+req.body.email+'.png'
   };
 
   User.create(new_user, function (err, result) {
@@ -62,7 +58,36 @@ router.post('/', function(req, res, next)
 // put
 router.put('/:id', function(req, res, next)
 {
-  var update = {first_name: req.body.first_name};
+  var update = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    avatar: req.body.avatar,
+    email: req.body.email,
+  };
+
+  User.findByIdAndUpdate(req.params.id, update, function (err, user) {
+    if (err)
+    {
+      var err = new Error(err);
+      err.status = 400;
+      next(err);
+    }
+    else
+    {
+      res.json({success: true, msg: 'user successfully updated'});
+    }
+  });
+});
+
+// put
+router.patch('/:id', function(req, res, next)
+{
+  var update = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    avatar: req.body.avatar,
+    email: req.body.email,
+  };
 
   User.findByIdAndUpdate(req.params.id, update, function (err, user) {
     if (err)
@@ -93,11 +118,11 @@ router.delete('/:id', function(req, res, next)
       // user deleted
       if(result.n === 1 && result.ok === 1)
       {
-        res.json({success: true, msg: 'user deleted'});
+        res.json({success: true, msg: 'user deleted', result: result});
       }
       else
       {
-        res.json({success: false, msg: 'user not deleted'});
+        res.json({success: false, msg: 'user not deleted', result: result});
       }
     }
   });

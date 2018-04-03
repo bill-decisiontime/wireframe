@@ -11,6 +11,7 @@
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
+    "backbone.paginator": "^2.0.6",
     "body-parser": "~1.18.2",
     "bootstrap": "^4.0.0",
     "cookie-parser": "~1.4.3",
@@ -21,10 +22,12 @@
     "moment": "^2.21.0",
     "mongodb": "^3.0.4",
     "mongoose": "^5.0.9",
+    "mongoose-paginate": "^5.0.3",
     "mongoose-type-email": "^1.0.5",
     "morgan": "~1.9.0",
     "popper.js": "^1.12.9",
     "pug": "2.0.0-beta11",
+    "random-avatar": "^1.0.1",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {

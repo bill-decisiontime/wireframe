@@ -12,3 +12,4 @@ Follow these steps to setup locally:
 the following env variables can be set in a `.env` file in the application root:
  - `NODE_ENV` default value is `development`
  - `PORT` the port the application will listen on default value is `3000`
+ - `MONGO_DB_URI` mongo db uri the default is `mongodb://localhost:27017/wireframe`

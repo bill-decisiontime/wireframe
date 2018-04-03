@@ -11,7 +11,7 @@ var debug = require('debug')(app_name+':server');
 var debug_db = require('debug')(app_name+':db');
 var http = require('http');
 var mongoose = require('mongoose');
-var mongo_url = process.env.MONGO_DB_URI;
+var mongo_url = (process.env.MONGO_DB_URI || 'mongodb://localhost:27017/wireframe');
 
 /**
  * Get port from environment and store in Express.
@@ -86,7 +86,7 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening(req, res) {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe: '+addr : 'port: '+addr.port;
   debug('application ' + bind);
@@ -97,6 +97,9 @@ function onListening() {
  * db
  */
  mongoose.connect(mongo_url).then(
-   () => { debug_db('ready to use the db connection'); },
+   () => { 
+     debug_db('ready to use the db connection');
+     debug_db('mongo uri - '+mongo_url);
+   },
    err => { debug_db('there was an error connecting to the db'); }  
  );

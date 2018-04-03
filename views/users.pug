@@ -4,9 +4,9 @@ block content
   div(class="container")
 
     //- add user form
-    div(class="row mb-5")
+    div(class="row mb-3")
       div(class="col")
-        form(id="add_user_form" class="form-inline justify-content-center")
+        form(id="add_user_form" class="form-inline")
           label(class="sr-only" for="first_name") First Name
           input(type="text" class="form-control mr-sm-2 mb-2" id="first_name" name="fist_name" placeholder="first name")
           label(class="sr-only" for="last_name") Last Name
@@ -19,46 +19,60 @@ block content
               div(class="input-group-text") @
             input(type="email" class="form-control mb-2" id="email" name="email" placeholder="email")
 
-          button(type="submit" id="submit_btn" class="btn btn-primary mb-2") add
+          button(type="submit" id="submit_btn" class="btn btn-primary mb-2")
+            span(id="submit_btn_text") add
             | 
             i(id="submit_btn_icon" class="fas fa-plus")
-            i(id="submit_btn_loader" style="display: none;" class="fas fa-sync fa-spin")
+            i(id="submit_btn_loader" style="display: none;" class="fas fa-sync fa-spin fa-sm")
 
     //- form feedback
     div(id="form_error_feedback_container")
+    
+    //- pagination
+    div(class="row")
+      div(id="pagination_container" class="col-9")
+      div(id="users_count" class="col-3 text-right mt-2")
+        p
+          | Total: 
+          span(class="users_count_number font-weight-bold") --
+      
 
     //- users table
     div(class="table-responsive")
-      table(id="users_table" class={'d-none': users.length === 0} class="table table-hover")
+      table(id="users_table" class="table table-hover")
         thead
           tr
             th(scope="col") avatar
-            th(scope="col") _id
             th(scope="col") first_name
             th(scope="col") last_name
             th(scope="col") email
             th(scope="col") created
-            th(scope="col") __v
             th(scope="col") action
         tbody
 
   //- backbone template - user
   script(type="text/template" id="user_tmpl")
+    td(class="user_avatar") 
+      <% if(avatar.length > 0) { %>
+        img(src!=`<%= avatar %>`, class="rounded user_avatar_img", alt="avatar", height="30px", width="30px")
+      <% } %>
+      div(class="user_avatar_uri", style="display: none;") <%- avatar %>
     td
-      a(href!=`<%- avatar %>`)
-        img(src!=`<%= avatar %>`, class="rounded", alt="avatar", height="30px", width="30px")
-    td <%- _id %>
-    td <%- first_name %>
-    td <%- last_name %>
-    td 
-      a(href!=`mailto:<%- email %>`) <%- email %>
+      div(class="user_first_name") <%- first_name %>
+    td
+      div(class="user_last_name") <%- last_name %>
+    td
+      div(class="user_email")
+        a(href!=`mailto:<%- email %>`) <%- email %>
     td(nowrap) <%- moment(createdAt).fromNow() %>
-    td <%- __v %>
     td
       a(href="#", class="delete_user mr-2")
         i(class="fas fa-times")
-      a(href="#", class="update_user")
+      a(href="#", class="update_user_init")
         i(class="fas fa-pencil-alt")
+      a(href="#", class="update_user", style="display: none;")
+        i(class="fas fa-save")
+      i(class="update_user_loader" style="display: none;" class="fas fa-sync fa-spin fa-sm")
 
   //- backbone template - validation feedback
   script(type="text/template" id="form_error_feedback_tmpl")
@@ -71,9 +85,18 @@ block content
         <% }) %>
       button(type="button" class="close" data-dismiss="alert" aria-label="Close")
         span(aria-hidden="true") &times;
+        
+  //- backbone template pagination item view
+  script(type="text/template" id="pagination_tmpl")
+    nav(aria-label="Page navigation")
+      ul(class="pagination mb-3")
+        <%_.forEach(page_items, function (page_item, i) { %>
+          li(class!=`page-item <%- page_item.state %>`)
+            a(class="page-link" href="#" data-goto_page!=`<%- page_item.goto_page %>`) <%- page_item.label %>
+        <% }) %>
 
 block non_blocking_scripts
   script(src="/javascripts/backbone/models/user_model_backbone.js")
   script(src="/javascripts/backbone/collections/users_collection_backbone.js")
-  script(src="/javascripts/backbone/views/users_view_backbone.js")
   script(src="/javascripts/users.js")
+  script(src="/javascripts/backbone/views/users_view_backbone.js")
