@@ -6,55 +6,57 @@ html
     script(defer, src="https://use.fontawesome.com/releases/v5.0.6/js/all.js")
     
     block header_scripts
-            
-    nav(class="navbar fixed-top navbar-expand-lg navbar-light bg-light")
-      div(class="col")
-        button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
-          i(class="fas fa-bars")
+    body
+      nav(class="navbar fixed-top navbar-expand-lg navbar-light bg-light")
+        div(class="col")
+          button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+            i(class="fas fa-bars")
 
-        div(class="collapse navbar-collapse" id="navbarSupportedContent")
-          ul(class="navbar-nav mr-auto")
+          div(class="collapse navbar-collapse" id="navbarSupportedContent")
+            ul(class="navbar-nav mr-auto")
+              li(class="nav-item dropdown")
+                a(class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") menu
+                div(class="dropdown-menu" aria-labelledby="navbarDropdown")
+                  a(class="dropdown-item" href="#") action
+                  a(class="dropdown-item" href="#") another action
+                  div(class="dropdown-divider")
+                  a(class="dropdown-item" href="#") something else here
+              li(class={active: title === "users", 'nav-item': true})
+                a(class="nav-link" href="/users") users
+              li(class={active: title === "copy", 'nav-item': true})
+                a(class="nav-link" href="/copy") copy
+        
+        div(class="col text-center")
+          a(class="navbar-brand text-center" href="/") #{pjson.name}
+        
+        div(class="col")
+          ul(class="navbar-nav float-right")
+            li(class="nav-item")
+              a(class="nav-link" href="#") help
             li(class="nav-item dropdown")
-              a(class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") menu
-              div(class="dropdown-menu" aria-labelledby="navbarDropdown")
+              a(class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") my account
+              div(class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown")
                 a(class="dropdown-item" href="#") action
                 a(class="dropdown-item" href="#") another action
                 div(class="dropdown-divider")
                 a(class="dropdown-item" href="#") something else here
-            li(class={active: title === "users", 'nav-item': true})
-              a(class="nav-link" href="/users") users
       
-      div(class="col text-center")
-        a(class="navbar-brand text-center" href="/") #{pjson.name}
+      block content
+        
+      nav(class="navbar fixed-bottom navbar-light bg-light")
+        div(class="col-6 text-muted")
+          small Organisation: developers demo
+        div(class="col-6 text-right text-muted")
+          small env: #{env}, v#{pjson.version}      
+        
+      script(src="/jquery/dist/jquery.min.js")
+      script(src="/popper.js/dist/umd/popper.min.js")
+      script(src="/bootstrap/dist/js/bootstrap.min.js")
+      script(src="/moment/moment.js")
+      script(src="/javascripts/backbone/lib/underscore-min.js")
+      script(src="/javascripts/backbone/lib/backbone-min.js")
+      script(src="/backbone.paginator/lib/backbone.paginator.min.js")
+      script(src="/javascripts/global.js")
       
-      div(class="col")
-        ul(class="navbar-nav float-right")
-          li(class="nav-item")
-            a(class="nav-link" href="#") help
-          li(class="nav-item dropdown")
-            a(class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") my account
-            div(class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown")
-              a(class="dropdown-item" href="#") action
-              a(class="dropdown-item" href="#") another action
-              div(class="dropdown-divider")
-              a(class="dropdown-item" href="#") something else here
-    
-    block content
-      
-    nav(class="navbar fixed-bottom navbar-light bg-light")
-      div(class="col-6 text-muted")
-        small Organisation: developers demo
-      div(class="col-6 text-right text-muted")
-        small env: #{env}, v#{pjson.version}      
-      
-    script(src="/jquery/dist/jquery.min.js")
-    script(src="/popper.js/dist/umd/popper.min.js")
-    script(src="/bootstrap/dist/js/bootstrap.min.js")
-    script(src="/moment/moment.js")
-    script(src="/javascripts/backbone/lib/underscore-min.js")
-    script(src="/javascripts/backbone/lib/backbone-min.js")
-    script(src="/backbone.paginator/lib/backbone.paginator.min.js")
-    script(src="/javascripts/global.js")
-    
-    block non_blocking_scripts
+      block non_blocking_scripts
     

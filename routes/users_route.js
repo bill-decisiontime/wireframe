@@ -31,8 +31,7 @@ router.get('/', function(req, res, next)
   );
 });
 
-// post
-router.post('/', function(req, res, next)
+function update_handler(req, res, next)
 {
   var new_user = {
     first_name: req.body.first_name,
@@ -52,32 +51,14 @@ router.post('/', function(req, res, next)
     {
       res.json(result);
     }
-  });
-});
+  });  
+}
+
+// post
+router.post('/', update_handler);
 
 // put
-router.put('/:id', function(req, res, next)
-{
-  var update = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    avatar: req.body.avatar,
-    email: req.body.email,
-  };
-
-  User.findByIdAndUpdate(req.params.id, update, function (err, user) {
-    if (err)
-    {
-      var err = new Error(err);
-      err.status = 400;
-      next(err);
-    }
-    else
-    {
-      res.json({success: true, msg: 'user successfully updated'});
-    }
-  });
-});
+router.put('/:id', update_handler);
 
 // put
 router.patch('/:id', function(req, res, next)

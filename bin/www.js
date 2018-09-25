@@ -96,9 +96,9 @@ function onListening(req, res) {
 /**
  * db
  */
- mongoose.connect(mongo_url).then(
+ mongoose.connect(mongo_url, {useNewUrlParser: true}).then(
    () => { 
-     debug_db('ready to use the db connection');
+     debug_db('ready to use the db connection.');
      debug_db('mongo uri - '+mongo_url);
    },
    err => { debug_db('there was an error connecting to the db'); }  

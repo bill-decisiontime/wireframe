@@ -32,9 +32,11 @@ app.locals.env = app.get('env');
 // allowed routes
 var index = require('./routes/index_route');
 var users = require('./routes/users_route');
+var copy = require('./routes/copy_route');
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/copy', copy);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,6 +58,8 @@ function logErrors(err, req, res, next)
 
 function clientErrorHandler(err, req, res, next)
 {
+  'use strict';
+  
   if (req.xhr)
   {
     res.status(err.status || 500).send({ error: err.message || 'Something failed!' });
@@ -68,6 +72,8 @@ function clientErrorHandler(err, req, res, next)
 
 function errorHandler(err, req, res, next)
 {
+  'use strict';
+  
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
