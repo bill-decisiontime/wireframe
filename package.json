@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "nodemon --inspect ./bin/www.js",
+    "start-prod": "./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
