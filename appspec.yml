@@ -1,0 +1,14 @@
+version: 0.0
+os: linux 
+files:
+  - source: /
+    destination: /home/ec2-user
+hooks:
+  AfterInstall:
+    - location: deployment-scripts/npm-install.sh
+      runas: ec2-user
+      timeout: 300    
+  ApplicationStart:
+    - location: deployment-scripts/npm-start.sh
+      runas: root
+      timeout: 60
