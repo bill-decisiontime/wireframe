@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon --inspect ./bin/www.js",
-    "production": "pm2 -f --name wireframe start ./bin/www.js",
+    "production": "pm2 --name wireframe start ./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
