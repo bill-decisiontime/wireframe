@@ -1,5 +1,5 @@
 {
-  "name": "wireframe_nodejs",
+  "name": "wireframe",
   "version": "1.0.1",
   "private": true,
   "repository": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon --inspect ./bin/www.js",
-    "production": "pm2 -f start ./bin/www.js",
+    "production": "pm2 -f --name wireframe start ./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
