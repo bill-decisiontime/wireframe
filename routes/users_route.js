@@ -11,10 +11,7 @@ router.get('/', function(req, res, next)
 {
   var page = req.query.page || 1;
   
-  debug('page: '+page);
-  debug('req.query.per_page: '+req.query.per_page);
-  
-  User.paginate({}, { page: page, limit: parseInt(req.query.per_page) }).then(
+  User.paginate({}, {page: page, limit: parseInt(req.query.per_page)}).then(
     (users) => {
       // xhr
       if(req.xhr)
