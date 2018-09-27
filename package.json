@@ -7,7 +7,7 @@
     "url": "https://github.com/bill-teamsolutionz/wireframe"
   },
   "scripts": {
-    "start": "nodemon --inspect ./bin/www.js",
+    "development": "nodemon --inspect ./bin/www.js",
     "production": "pm2 --name wireframe start ./bin/www.js",
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
@@ -35,5 +35,9 @@
     "livereload": "^0.7.0",
     "nodemon": "^1.18.4"
   },
-  "nodemonConfig": {}
+  "nodemonConfig": {},
+  "jshintConfig": {
+    "camelcase": false,
+    "esversion": 6
+  }
 }

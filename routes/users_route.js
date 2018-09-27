@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var app_name = require('../package.json').name;
-var debug = require('debug')(app_name+':server');
+var debug = require('debug')(app_name+':users_route');
 var debug_db = require('debug')(app_name+':db');
 var User = require('../models/user_model_mongoose');
 var random_avatar = require('random-avatar');
@@ -43,9 +43,9 @@ function update_handler(req, res, next)
   User.create(new_user, function (err, result) {
     if (err)
     {
-      var err = new Error(err);
-      err.status = 400;
-      next(err);
+      var error = new Error(err);
+      error.status = 400;
+      next(error);
     }
     else
     {
@@ -73,9 +73,9 @@ router.patch('/:id', function(req, res, next)
   User.findByIdAndUpdate(req.params.id, update, function (err, user) {
     if (err)
     {
-      var err = new Error(err);
-      err.status = 400;
-      next(err);
+      var error = new Error(err);
+      error.status = 400;
+      next(error);
     }
     else
     {
@@ -90,9 +90,9 @@ router.delete('/:id', function(req, res, next)
   User.deleteOne({_id: req.params.id}, function (err, result) {
     if (err)
     {
-      var err = new Error(err);
-      err.status = 400;
-      next(err);
+      var error = new Error(err);
+      error.status = 400;
+      next(error);
     }
     else
     {
