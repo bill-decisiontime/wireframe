@@ -12,6 +12,7 @@
     "watch-scss": "sass --watch scss:public/stylesheets --style compressed"
   },
   "dependencies": {
+    "aws-sdk": "^2.327.0",
     "backbone.paginator": "^2.0.6",
     "body-parser": "~1.18.2",
     "bootstrap": "^4.1.2",
@@ -29,7 +30,8 @@
     "popper.js": "^1.12.9",
     "pug": "2.0.0-beta11",
     "random-avatar": "^1.0.1",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "sqs-consumer": "^3.8.0"
   },
   "devDependencies": {
     "livereload": "^0.7.0",
