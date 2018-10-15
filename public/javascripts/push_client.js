@@ -1,6 +1,5 @@
-if ('serviceWorker' in navigator) {
-  console.log('Registering service worker');
-
+if ('serviceWorker' in navigator)
+{
   run().catch(error => console.error(error));
 }
 
