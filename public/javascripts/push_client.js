@@ -19,6 +19,7 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 async function run() {
+  var vapid_public_key = "BM9ffDFabDoU845z0QmaR9TEUlX_KAVyeLYRBWagDcjOGv5Ub0-bWQbnK-CoSnt5nCDOpzuiMDqEA-MYnoznWgk";
   console.log('Registering service worker');
   const registration = await navigator.serviceWorker.
     register('/javascripts/worker.js', {scope: '/javascripts/'});
@@ -30,7 +31,7 @@ async function run() {
       userVisibleOnly: true,
       // The `urlBase64ToUint8Array()` function is the same as in
       // https://www.npmjs.com/package/web-push#using-vapid-key-for-applicationserverkey
-      applicationServerKey: urlBase64ToUint8Array('BHCIReX3-DH-6uOBvTJejZiFIsWUE6KejkYGzPkoatcjvK-IZ65cBaWgFmSsa_gxkVCZwF3h8iUhvgIq3RY4Blo')
+      applicationServerKey: urlBase64ToUint8Array(vapid_public_key)
     });
   console.log('Registered push');
 

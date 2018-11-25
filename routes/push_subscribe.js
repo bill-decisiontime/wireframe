@@ -4,26 +4,21 @@ var app_name = require('../package.json').name;
 var debug = require('debug')(app_name+':push_route');
 
 const webpush = require('web-push');
+const vapidKeys = webpush.generateVAPIDKeys();
 
-/**
- * push
- */
- const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
- const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
- webpush.setVapidDetails('mailto:bill.morrison@teamsolutionz.com', publicVapidKey, privateVapidKey);
+debug(vapidKeys);
 
-//aws
-const Consumer = require('sqs-consumer');
-SQS_QUEUE_URL = 'https://sqs.eu-west-2.amazonaws.com/065479731380/billtest';
+var vapid_public_key = "BM9ffDFabDoU845z0QmaR9TEUlX_KAVyeLYRBWagDcjOGv5Ub0-bWQbnK-CoSnt5nCDOpzuiMDqEA-MYnoznWgk";
+var vapid_private_key = "dLFM1zK6-dIvG1Y5yjSA260YAS4NLhYaRxbMrrMIU4I";
+webpush.setVapidDetails('mailto:bill.morrison@teamsolutionz.com', vapid_public_key, vapid_private_key);
 
-/* GET home page. */
 router.post('/', function(req, res, next)
 {
   const subscription = req.body;
   res.status(201).json({});
   const payload = JSON.stringify({ title: 'test' });
 
-  console.log(subscription);
+  debug(subscription);
 
   webpush.sendNotification(subscription, payload).catch(error => {
     console.error(error.stack);
