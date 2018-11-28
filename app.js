@@ -34,15 +34,11 @@ var index = require('./routes/index_route');
 var users = require('./routes/users_route');
 var copy = require('./routes/copy_route');
 var sqs = require('./routes/sqs_route');
-var push = require('./routes/push_route');
-var push_subscribe = require('./routes/push_subscribe');
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/copy', copy);
 app.use('/sqs', sqs);
-app.use('/push', push);
-app.use('/push_subscribe', push_subscribe);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next)
