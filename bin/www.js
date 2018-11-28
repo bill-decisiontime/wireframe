@@ -11,6 +11,7 @@ var debug_db = require('debug')(app_name+':db');
 var http = require('http');
 var mongoose = require('mongoose');
 var mongo_url = (process.env.MONGO_DB_URI || 'mongodb://localhost:27017/wireframe');
+const Consumer = require('sqs-consumer');
 
 /**
  * Get port from environment and store in Express.
@@ -102,3 +103,23 @@ function onListening(req, res)
    },
    err => { debug_db('there was an error connecting to the db'); }
  );
+ 
+ /**
+  * aws - sqs consumer
+  */
+ const sqs_consumer = Consumer.create({
+   region: process.env.AWS_REGION,
+   queueUrl: process.env.SQS_QUEUE_URL,
+   waitTimeSeconds: 20,
+   handleMessage: (message, done) => {
+     debug(message);
+     done();
+   }
+ });
+
+ sqs_consumer.on('error', (err) => {
+   console.log(err.message);
+ });
+
+ debug('sqs_consumer started');
+ sqs_consumer.start();
