@@ -9,7 +9,6 @@ Follow these steps to setup locally:
 - start the server on windows - `set DEBUG=myapp:* & npm run development`
 - start sass watching our sass files with `npm run watch-scss`
 - intstall livereload browser [extension](http://livereload.com/extensions/)
-- when code is pushed to `master` it is deployed to [https://wireframe.decisiontime.online/](https://wireframe.decisiontime.online/)
 
 the following env variables can be set in a `.env` file in the application root:
  - `NODE_ENV` default value is `development`
