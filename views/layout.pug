@@ -4,6 +4,7 @@ html
     title= title
     link(href="/stylesheets/custom.css", rel="stylesheet")
     script(defer, src="https://use.fontawesome.com/releases/v5.0.6/js/all.js")
+    script(src="/socket.io-client/dist/socket.io.js")
     link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
     
     block header_scripts
@@ -26,6 +27,8 @@ html
                 a(class="nav-link" href="/users") users
               li(class={active: title === "copy", 'nav-item': true})
                 a(class="nav-link" href="/copy") copy
+              li(class={active: title === "sqs", 'nav-item': true})
+                a(class="nav-link" href="/sqs") sqs
         
         div(class="col text-center")
           a(class="navbar-brand text-center" href="/") #{pjson.name}
