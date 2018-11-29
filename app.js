@@ -34,11 +34,13 @@ var index = require('./routes/index_route');
 var users = require('./routes/users_route');
 var copy = require('./routes/copy_route');
 var sqs = require('./routes/sqs_route');
+var twitter = require('./routes/twitter_route');
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/copy', copy);
 app.use('/sqs', sqs);
+app.use('/twitter', twitter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next)

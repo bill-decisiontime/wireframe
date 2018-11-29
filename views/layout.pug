@@ -29,6 +29,8 @@ html
                 a(class="nav-link" href="/copy") copy
               li(class={active: title === "sqs", 'nav-item': true})
                 a(class="nav-link" href="/sqs") sqs
+              li(class={active: title === "twitter", 'nav-item': true})
+                a(class="nav-link" href="/twitter") twitter
         
         div(class="col text-center")
           a(class="navbar-brand text-center" href="/") #{pjson.name}
@@ -50,8 +52,11 @@ html
       nav(class="navbar fixed-bottom navbar-light bg-light")
         div(class="col-6 text-muted")
           small 
-            a(class="text-muted" href=pjson.repository.url) v#{pjson.version} 
+            a(class="text-muted" href=pjson.repository.url)
               i(class="fab fa-github")
+              | 
+              v #{pjson.version} 
+              
         div(class="col-6 text-right text-muted")
           small env: #{env}      
         
@@ -65,4 +70,3 @@ html
       script(src="/javascripts/global.js")
       
       block non_blocking_scripts
-    

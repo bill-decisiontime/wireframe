@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  
+  div(class="container")
+    h4(class="text-center") tweets - #{track_string}
+    div(class="row justify-content-md-center")
+      //- div(id='tweet' data-linkify-target="_blank" class="alert alert-primary" role="alert" style="display: none;")
+      ul(id="tweet_list" class="list-group")
+        
+block non_blocking_scripts
+  script(src="/linkifyjs/dist/linkify.min.js")
+  script(src="/linkifyjs/dist/linkify-jquery.min.js")
+  script(src="/linkifyjs/dist/linkify-plugin-mention.min.js")
+  script(src="/linkifyjs/dist/linkify-plugin-hashtag.min.js")
+  script(src="/javascripts/twitter.js")
